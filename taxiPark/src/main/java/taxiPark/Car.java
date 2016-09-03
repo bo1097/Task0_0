@@ -5,15 +5,18 @@
  */
 package taxiPark;
 
+import java.util.Random;
+
 /**
  *
  * @author lenovo
  */
-public class Car {
-    
+public class Car implements Comparable<Object> {
+    static Random r = new Random();
     private String model;
     private int price;
     private int fuelConsumption;
+    private int fuelConsumptionOnTrack; //Расход топилва по трассе
     private int maxSpeed;
 
     public Car(String model, int price, int fuelConsumption, int maxSpeed) {
@@ -54,6 +57,18 @@ public class Car {
 
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
+    }
+    //Метод создает рандомный расход топлива
+    public static int returnRandomFuel(int consumption){
+        while(consumption<6){
+            consumption = r.nextInt(30);
+        }
+        return consumption;
+   }
+
+    @Override
+    public int compareTo(Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

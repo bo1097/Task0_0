@@ -20,7 +20,7 @@ public class App {
     static Scanner sc= new Scanner(System.in);;
     static boolean onStart = false;
     static int quantityOfParks = 0;
-    static int i;
+    
     //static final int j = 1+i;
     
     
@@ -38,8 +38,8 @@ public class App {
            switch(choice){
                case 1: System.out.println("Введите количество автопарков, которые хотите создать");
                         quantityOfParks =Integer.parseInt(sc.next());
-                        for(i=0; i<quantityOfParks; i++){
-                           createTaxiPark();}break;
+                        for(int i=0; i<quantityOfParks; i++){
+                           createTaxiPark(i);}break;
                             
                case 2:  taxiParkInfo(); break;
            }
@@ -53,7 +53,7 @@ public class App {
     
 //   Пункт меню : 1
 //   Метод создает таксопарк
-    public static void createTaxiPark(){
+    public static void createTaxiPark(int i){
        int j = i + 1;    
         System.out.println("Создание " +j+"-ого "+"таксопарка");
         System.out.println("Введите имя для вашего "+j+"-ого "+ "таксопарка");
@@ -76,6 +76,34 @@ public class App {
         taxiParks[count] = taxiPark;
     }
     
+    
+    
+    
+    
+   public static void manipulateTaxiPark(){
+       int userChoice = 0;
+       System.out.println("1: Показать все автопарки");
+       System.out.println("2: Добавить мащину");
+       System.out.println("3: Убрать машину");
+       System.out.println("4: Посмотреть все машины автопарка");
+       System.out.println("5: Посмотреть стоимость автопарка");
+       System.out.println("6: Отсортировать автомобили по расходу топлива");
+       System.out.println("7: Найти автомобиль с заданными параметрами скорости");
+       System.out.println("8: Вернуться в главное меню");
+       
+       switch(userChoice){
+           case 1: 
+           case 2:
+           case 3:
+           case 4:
+           case 5:
+           case 6:
+       }
+       
+       
+       
+   }
+    
 //    Пункт меню: 2
 //    Метод выводит информацию об автопарке
     public static void taxiParkInfo(){
@@ -87,7 +115,8 @@ public class App {
             int j = i+1;
             System.out.print( j + ":"+taxiParks[i].getNameOfPark());
             System.out.println();
-        }}}}
+        }}}
+}
         
         
    

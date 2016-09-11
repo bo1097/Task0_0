@@ -113,13 +113,7 @@ public class TaxiPark {
         return numberOfCars < carsOnStation.length;
         }
 
-   public int checkPrice(){
-       if(price ==0){
-           System.out.println("В таксопарке пока что нет машин");
-       }
-        return getPrice();
-       
-   }
+  
    
     
     

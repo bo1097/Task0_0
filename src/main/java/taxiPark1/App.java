@@ -20,6 +20,8 @@ public class App {
     static Random random = new Random();
     
     public static void main(String[] args) {
+        System.out.println("Ghndv");
+    
        
         int choice; // Выбор пользователя в главном меню
         boolean onStart = false; 
@@ -119,7 +121,7 @@ public class App {
                                      break;
                 case 2 : taxiPark.removeCar();break;
                 case 3 : taxiPark.showAllCarsOfStation();break;
-                case 4 : taxiPark.checkPrice(); break;
+                case 4 : taxiPark.getPrice(); break;
                 case 5 : taxiPark.sortByFuel();break;
                 case 6 : taxiPark.showCarBySpeed();break;
             }

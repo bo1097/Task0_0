@@ -1,0 +1,101 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package train1;
+
+/**
+ *
+ * @author lenovo
+ */
+public class Train {
+    
+    private final int carriageQuantity; // Общее количество вагонов 
+    private  final int carriageCoupeQuantity; // Количество вагонов купе
+    private final int carriagePKQuantity; // Количество вагонов плац-карт
+    private int coupeCount; // Счетчик вагонов купе
+    private int pkCount; // Счетчик вагонов плац-карт
+    private int expressCount; // Счетчик вагонов экспресс
+    public final TrainType trainType; 
+    private Carriage[] arrayOfCarriages; // Массив вагонов
+    private int carriageCount; // Счетчик вагонов поезда
+
+    public Carriage[] getArrayOfCarriages() {
+        return arrayOfCarriages;
+    }
+  
+   public enum TrainType {
+       TRAIN_TYPE_PASSENGER, TRAIN_TYPE_EXPRESS;
+
+        @Override
+        public String toString() {
+           switch(this){
+               case TRAIN_TYPE_EXPRESS : return "Экспресс";
+               case TRAIN_TYPE_PASSENGER : return "Пассажирский"; 
+               default : throw new IllegalArgumentException();
+           }
+        }
+       
+    } 
+   
+   
+   /*
+   Конструктор для создания пассажирского поезда 
+   */ 
+   public Train(int carriageCoupeQuantity, int carriagePKQuantity){
+       trainType = TrainType.TRAIN_TYPE_PASSENGER;
+       this.carriageCoupeQuantity = carriageCoupeQuantity;
+        this.carriagePKQuantity = carriagePKQuantity;
+        carriageQuantity = carriagePKQuantity + carriageCoupeQuantity;
+        arrayOfCarriages = new Carriage[carriageQuantity];
+     }
+   
+   /*
+   Конструктор для создания экспресс поезда
+   */
+   public Train(int carriageQuantity){
+       trainType = TrainType.TRAIN_TYPE_EXPRESS;
+       this.carriageQuantity = carriageQuantity; 
+       this.carriageCoupeQuantity = 0;
+       this.carriagePKQuantity = 0;
+       arrayOfCarriages = new Carriage[carriageQuantity];
+   }
+   
+     public int getCarriageQuantity() {
+        return carriageQuantity;
+    }
+    
+    /*
+     Метод добавляет определенный вагон в массив вагонов поезда
+     */
+     public void addCarriages(Carriage carriage){
+         arrayOfCarriages[carriageCount++] = carriage;
+     }
+     
+     /*
+     Метод выводит все вагоны данного поезда
+     */
+     public void showAllCarriages(){
+         for(int i =0; i < carriageCount; i ++){
+             System.out.println(arrayOfCarriages[i]);
+         }
+     }
+     
+     
+    @Override
+    public String toString() {
+         return " Тип:" + trainType + "; Количество вагонов: " + carriageQuantity;
+    }
+
+    public int getCarriageCoupeQuantity() {
+        return carriageCoupeQuantity;
+    }
+
+    public int getCarriagePKQuantity() {
+        return carriagePKQuantity;
+    }
+     
+    
+    
+}

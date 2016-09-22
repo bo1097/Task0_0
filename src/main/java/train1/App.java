@@ -65,6 +65,7 @@ public class App {
         switch(userChoice){
             case 1 : createExpress(); break;
             case 2 : createPassengerTrain();break;
+            
         }
             
             
@@ -211,7 +212,8 @@ public class App {
             case 2 : passengersInRange(train);break;
             case 3 : sortOnComfortLevel(train); break;
             case 4 : showQuantityOfPAssengers(train); break;
-            case 5 : showQuantityOfBaggage(train); break;    
+            case 5 : showQuantityOfBaggage(train); break;   
+            case 6 : System.out.println(train.getArrayOfCarriages()[2].getType());
         }
         }catch(NumberFormatException e){
             System.out.println("Попробуйте еще раз");

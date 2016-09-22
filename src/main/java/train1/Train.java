@@ -5,6 +5,8 @@
  */
 package train1;
 
+import java.util.Arrays;
+
 /**
  *
  * @author lenovo
@@ -25,20 +27,22 @@ public class Train {
         return arrayOfCarriages;
     }
   
-   public enum TrainType {
+   public enum TrainType{
        TRAIN_TYPE_PASSENGER, TRAIN_TYPE_EXPRESS;
 
-        @Override
-        public String toString() {
-           switch(this){
-               case TRAIN_TYPE_EXPRESS : return "Экспресс";
-               case TRAIN_TYPE_PASSENGER : return "Пассажирский"; 
-               default : throw new IllegalArgumentException();
-           }
-        }
-       
-    } 
+} 
    
+   public String typeToString(){
+       if(trainType.equals(TrainType.TRAIN_TYPE_PASSENGER)){
+           return "Пассажирский";
+       }
+       if(trainType.equals(TrainType.TRAIN_TYPE_EXPRESS)){
+           return "Экспресс";
+       }
+       else{
+           return null;
+       }
+   }
    
    /*
    Конструктор для создания пассажирского поезда 
@@ -67,9 +71,12 @@ public class Train {
     }
     
     /*
-     Метод добавляет определенный вагон в массив вагонов поезда
+     Метод добавляет определенный вагон в массив вагонов поезда. Длина массива определяется в конструкторе. 
      */
      public void addCarriages(Carriage carriage){
+         if(arrayOfCarriages.length <= carriageCount++){
+             arrayOfCarriages = Arrays.copyOf(arrayOfCarriages, (carriageCount++) + 10);
+         }
          arrayOfCarriages[carriageCount++] = carriage;
      }
      
@@ -85,7 +92,7 @@ public class Train {
      
     @Override
     public String toString() {
-         return " Тип:" + trainType + "; Количество вагонов: " + carriageQuantity;
+         return " Тип:" + typeToString() + "; Количество вагонов: " + carriageQuantity;
     }
 
     public int getCarriageCoupeQuantity() {

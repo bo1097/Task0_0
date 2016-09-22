@@ -24,40 +24,36 @@ public class Carriage implements Comparable<Carriage> {
 
     @Override
     public int compareTo(Carriage o) {
-        if(o == null){
-            return -1;
-        }
-        if(this.comfortLevel > o.comfortLevel){
-            return 1;
-        }
-        if(this.comfortLevel < o.comfortLevel){
-            return -1;
-        }
-        else{
-            return 0;
-        }
+       return this.comfortLevel - o.comfortLevel;
     }
         
     
     public static enum CarriageType {
         CARRIAGE_TYPE_COUPE, CARRIAGE_TYPE_PK, CARRIAGE_TYPE_EXPRESS;
 
-        @Override
-        public String toString() {
-            switch(this){
-                case CARRIAGE_TYPE_COUPE : return "Купе"; 
-                case CARRIAGE_TYPE_PK : return "Плац-Карт";
-                case CARRIAGE_TYPE_EXPRESS : return "Экспресс";
-                default : throw new IllegalArgumentException();
-            }
+    }
+    
+    /*
+    Метод возвращает более читабельный тип вагона
+    */
+    public String typeToString(){
+        if(carriageType.equals(CarriageType.CARRIAGE_TYPE_COUPE)){
+            return "Купе";
         }
-        
+        if(carriageType.equals(CarriageType.CARRIAGE_TYPE_EXPRESS)){
+            return "Экспресс";
+        }
+        if(carriageType.equals(CarriageType.CARRIAGE_TYPE_PK)){
+            return "Плац-карт";
+        }else{
+            return null;
+        }
     }
     
     /*
     Конструктор который опредляет тип вагона и его параметры
     */
-    public Carriage(CarriageType carriageType, int index, int quantityOfPassengers, int comfortLevel ){
+    public Carriage(CarriageType carriageType, int index, int quantityOfPassengers, int comfortLevel){
         this.carriageType = carriageType;
         this.index = index;
         this.quantityOfPassengers = quantityOfPassengers; 
@@ -74,11 +70,14 @@ public class Carriage implements Comparable<Carriage> {
 
     @Override
     public String toString() {
-        return "Вагон " + index + ". " + "Тип: " + carriageType +
+        return "Вагон " + index + ". " + "Тип: " + typeToString() +
                 "; Количество пассажиров: " + quantityOfPassengers +
                 "; Количество багажа: " + quantityOfBaggage + "; Уровень комфорта: " + comfortLevel;
      }
     
+    public CarriageType getType(){
+        return carriageType;
+    }
     
     
 }

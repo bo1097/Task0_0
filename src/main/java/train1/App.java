@@ -8,6 +8,8 @@ package train1;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import train.Carriage.CarriageType;
 
 
@@ -183,9 +185,9 @@ public class App {
     который может быть либо 5, либо 4 (5- первый класс, 4 - второй)
     */
     public static int getRandomComfortLevel(){
-        int comfortLevel = r.nextInt(5);
+        int comfortLevel = r.nextInt(6);
         while(comfortLevel<=3){
-            comfortLevel = r.nextInt(5);
+            comfortLevel = r.nextInt(6);
         }
         return comfortLevel;
         
@@ -209,11 +211,10 @@ public class App {
            
         switch(userChoice){
             case 1 : train.showAllCarriages();break;
-            case 2 : passengersInRange(train);break;
-            case 3 : sortOnComfortLevel(train); break;
-            case 4 : showQuantityOfPAssengers(train); break;
-            case 5 : showQuantityOfBaggage(train); break;   
-            case 6 : System.out.println(train.getArrayOfCarriages()[2].getType());
+            case 2 : train.passengersInRange(train);break;
+            case 3 : train.sortOnComfortLevel(); break;
+            case 4 : train.showQuantityOfPassengers(); break;
+            case 5 : train.showQuantityOfBaggage(); break;   
         }
         }catch(NumberFormatException e){
             System.out.println("Попробуйте еще раз");
@@ -248,56 +249,4 @@ public class App {
         }
     }
     
-    /*
-    Метод находит вагоны с заданным диапазоно пассажиров
-    */
-    public static void passengersInRange(Train train){
-        String range = "";
-        int from; // от
-        int to; // до
-        boolean onStart = false;
-       
-    while(!onStart){
-        System.out.println("Через дефис напишите диапазон пассажиров. В таком виде: n-n");
-        range = sc.next();
-        String []split = range.split("-");
-        from = Integer.parseInt(split[0]);
-        to = Integer.parseInt(split[1]);
-        for(int i = 0 ; i < train.getCarriageQuantity(); i ++){
-            if(train.getArrayOfCarriages()[i].getQuantityOfPassengers()>=from 
-                        && train.getArrayOfCarriages()[i].getQuantityOfPassengers()<=to){
-                System.out.println(train.getArrayOfCarriages()[i]);
-            }
-        }
-        onStart = true;
-    }
-        
-    }
-    
-    public static void sortOnComfortLevel(Train train){
-        Arrays.sort(train.getArrayOfCarriages());
-        train.showAllCarriages();
-    }
-    
-    /*
-    Метод, который находит общее количество пассажиров в поезде
-    */
-    public static void showQuantityOfPAssengers(Train train){
-        int allPassengers = 0; // Все пассажиры поезда
-        for(int i =0 ; i < train.getCarriageQuantity(); i ++){
-            allPassengers += train.getArrayOfCarriages()[i].getQuantityOfPassengers();
-        }
-        System.out.println("Общее количество пассажиров в поезде: " + allPassengers);
-    }
-    
-    /*
-    Метод, который находит общее количество багажа в поезде 
-    */
-    public static void showQuantityOfBaggage(Train train){
-       int allBaggage = 0; //Общее количество багажа
-        for(int i = 0; i < train.getCarriageQuantity(); i ++){
-            allBaggage += train.getArrayOfCarriages()[i].getQuantityOfBaggage();
-        }
-        System.out.println("Общее количество багажа в поезде: " + allBaggage);
-    }
     }

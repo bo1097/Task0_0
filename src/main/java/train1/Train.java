@@ -6,6 +6,9 @@
 package train1;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import static train1.App.sc;
 
 /**
  *
@@ -27,24 +30,24 @@ public class Train {
         return arrayOfCarriages;
     }
   
-   public enum TrainType{
-       TRAIN_TYPE_PASSENGER, TRAIN_TYPE_EXPRESS;
+   public static enum TrainType{
+       TRAIN_TYPE_PASSENGER("Пассажирский"), TRAIN_TYPE_EXPRESS("Экспресс");
+       
+       public  String name;
 
-} 
-   
-   public String typeToString(){
-       if(trainType.equals(TrainType.TRAIN_TYPE_PASSENGER)){
-           return "Пассажирский";
+        private TrainType(String name) {
+            this.name = name;
+        }
+       
+        public  String getName(){
+           return name;
        }
-       if(trainType.equals(TrainType.TRAIN_TYPE_EXPRESS)){
-           return "Экспресс";
-       }
-       else{
-           return null;
-       }
+        
    }
    
-   /*
+   
+   
+     /*
    Конструктор для создания пассажирского поезда 
    */ 
    public Train(int carriageCoupeQuantity, int carriagePKQuantity){
@@ -74,10 +77,11 @@ public class Train {
      Метод добавляет определенный вагон в массив вагонов поезда. Длина массива определяется в конструкторе. 
      */
      public void addCarriages(Carriage carriage){
-         if(arrayOfCarriages.length <= carriageCount++){
-             arrayOfCarriages = Arrays.copyOf(arrayOfCarriages, (carriageCount++) + 10);
+         if(arrayOfCarriages.length < carriageQuantity ){
+             throw new ArrayIndexOutOfBoundsException();
          }
-         arrayOfCarriages[carriageCount++] = carriage;
+      
+        arrayOfCarriages[carriageCount++] = carriage;
      }
      
      /*
@@ -89,10 +93,84 @@ public class Train {
          }
      }
      
+      /*
+    Метод находит вагоны с заданным диапазоно пассажиров
+    */
+    public  void passengersInRange(Train train){
+        String range = "";
+        int from; // от
+        int to; // до
+        boolean onStart = false;
+        boolean allGood = false;
+      System.out.println("Через дефис напишите диапазон пассажиров. В таком виде: n-n");
+    while(!onStart){
+        range = sc.next();
+        if(checkRange(range)){
+        String []split = range.split("-");
+        from = Integer.parseInt(split[0]);
+        to = Integer.parseInt(split[1]);
+        for(int i = 0 ; i < getCarriageQuantity(); i ++){
+            if(getArrayOfCarriages()[i].getQuantityOfPassengers()>=from 
+                        && getArrayOfCarriages()[i].getQuantityOfPassengers()<=to){
+                allGood = true;
+                System.out.println(getArrayOfCarriages()[i]);
+            }
+        }
+        if(!allGood){
+            System.out.println("Вагонов с количеством пассажиров  в диапазоне " + range + " нет");
+        }
+        onStart = true;
+        } else{
+            System.out.println("Неверный диапазон. Попробуйте еще раз ");
+        }
+        
+    }
+        
+    }
+        /*
+        Метод проверяет правильно ли пользователь написал диапазон пассажиров
+        */
+        public  boolean checkRange(String range){
+            Pattern p = Pattern.compile("[0-6]?[0-9]{1}[-]{1}[0-6]?[0-9]{1}");
+            Matcher m = p.matcher(range);
+            return m.matches();
+        
+        }
+        
+        /*
+    Метод, который находит общее количество пассажиров в поезде
+    */
+    public  void showQuantityOfPassengers(){
+        int allPassengers = 0; // Все пассажиры поезда
+        for(int i =0 ; i < getCarriageQuantity(); i ++){
+            allPassengers += getArrayOfCarriages()[i].getQuantityOfPassengers();
+        }
+        System.out.println("Общее количество пассажиров в поезде: " + allPassengers);
+    }
+    
+    /*
+    Метод сортирует вагоны по уровню комфорта
+    */
+    public  void sortOnComfortLevel(){
+        Arrays.sort(getArrayOfCarriages());
+        showAllCarriages();
+    }
+    
+     /*
+    Метод, который находит общее количество багажа в поезде 
+    */
+    public  void showQuantityOfBaggage(){
+       int allBaggage = 0; //Общее количество багажа
+        for(int i = 0; i < getCarriageQuantity(); i ++){
+            allBaggage += getArrayOfCarriages()[i].getQuantityOfBaggage();
+        }
+        System.out.println("Общее количество багажа в поезде: " + allBaggage);
+    }
+     
      
     @Override
     public String toString() {
-         return " Тип:" + typeToString() + "; Количество вагонов: " + carriageQuantity;
+         return " Тип:" +trainType.getName() + "; Количество вагонов: " + carriageQuantity;
     }
 
     public int getCarriageCoupeQuantity() {

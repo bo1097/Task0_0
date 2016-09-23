@@ -29,27 +29,21 @@ public class Carriage implements Comparable<Carriage> {
         
     
     public static enum CarriageType {
-        CARRIAGE_TYPE_COUPE, CARRIAGE_TYPE_PK, CARRIAGE_TYPE_EXPRESS;
+        CARRIAGE_TYPE_COUPE("Купе"), CARRIAGE_TYPE_PK("Плац-карт"), CARRIAGE_TYPE_EXPRESS("Экспресс");
+        
+        String name;
+
+        private CarriageType(String name) {
+            this.name = name;
+        }
+        
+        public String getName(){
+            return name;
+        }
+        
 
     }
-    
-    /*
-    Метод возвращает более читабельный тип вагона
-    */
-    public String typeToString(){
-        if(carriageType.equals(CarriageType.CARRIAGE_TYPE_COUPE)){
-            return "Купе";
-        }
-        if(carriageType.equals(CarriageType.CARRIAGE_TYPE_EXPRESS)){
-            return "Экспресс";
-        }
-        if(carriageType.equals(CarriageType.CARRIAGE_TYPE_PK)){
-            return "Плац-карт";
-        }else{
-            return null;
-        }
-    }
-    
+   
     /*
     Конструктор который опредляет тип вагона и его параметры
     */
@@ -70,7 +64,7 @@ public class Carriage implements Comparable<Carriage> {
 
     @Override
     public String toString() {
-        return "Вагон " + index + ". " + "Тип: " + typeToString() +
+        return "Вагон " + index + ". " + "Тип: " + carriageType.getName()+
                 "; Количество пассажиров: " + quantityOfPassengers +
                 "; Количество багажа: " + quantityOfBaggage + "; Уровень комфорта: " + comfortLevel;
      }
